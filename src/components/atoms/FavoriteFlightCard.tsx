@@ -1,21 +1,10 @@
-import { useQuery, gql } from "@apollo/client";
+import { useRecoilState, useSetRecoilState, useRecoilValue } from "recoil";
+import { favoritesState, Rocket } from "../../utils/state";
 import styled from "styled-components";
 import image from "../../assets/backgorundImage_1.png";
 import Button from "./Button";
-import Heart from "../../assets/Heart.svg";
-import { useRecoilState } from "recoil";
-import { favoritesState, Rocket } from "../../utils/state";
+import Delete from "../../assets/Delete.svg";
 import { images } from "../../assets/images";
-
-const GET_ROCKETS = gql(`
-query GetRockets {
-  rockets {
-    id
-    description
-    name
-  }
- }
-`);
 
 const SlideContentWrapper = styled.div`
   display: flex;
@@ -53,20 +42,16 @@ const ButtonWrapper = styled.div`
   margin-top: 10px;
 `;
 
-const FlightCard = () => {
-  const { data, loading, error } = useQuery(GET_ROCKETS);
-  const [favorites, setFavorites] = useRecoilState(favoritesState);
+const FavoriteFlightCard = () => {
+  const [favoriteRockets, setFavoriteRockets] = useRecoilState(favoritesState);
 
-  if (loading) return <div>"Loading...."</div>;
-  if (error) return <div>`Error! ${error.message}`</div>;
-
-  const handleFavoriteClick = (rocket: Rocket) => {
-    if (!favorites.some((fav) => fav.id === rocket.id)) {
-      setFavorites([...favorites, rocket]);
-    }
+  const handleDeleteClick = (rocket: Rocket, index: number) => {
+    const newFavorites = [...favoriteRockets];
+    newFavorites.splice(index, 1);
+    setFavoriteRockets(newFavorites);
   };
 
-  const slides = data.rockets.map((rocket: Rocket, index: number) => (
+  const favoriteSlides = favoriteRockets.map((rocket: Rocket, index) => (
     <SlideWrapper key={index}>
       <SlideContentWrapper>
         <SlideImage src={images[index % 3]} alt={rocket.name} />
@@ -75,15 +60,15 @@ const FlightCard = () => {
         <ButtonWrapper>
           <Button text="BUY"></Button>
           <Button
-            onClick={() => handleFavoriteClick(rocket)}
-            text={<img src={Heart} alt="Heart" />}
+            onClick={() => handleDeleteClick(rocket, index)}
+            text={<img src={Delete} alt="Heart" />}
           ></Button>
         </ButtonWrapper>
       </SlideContentWrapper>
     </SlideWrapper>
   ));
 
-  return <>{slides}</>;
+  return <>{favoriteSlides}</>;
 };
 
-export default FlightCard;
+export default FavoriteFlightCard;

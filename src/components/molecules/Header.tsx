@@ -1,18 +1,21 @@
 import Button from "../atoms/Button";
 import Logo from "../atoms/Logo";
 import Heart from "../../assets/Heart.svg";
+import { NavLink } from "react-router-dom";
 
 const Header = () => {
   return (
     <nav>
-      <a href="/">
+      <NavLink to="/">
         <Logo />
-      </a>
-      <a href="/">HOME</a>
+      </NavLink>
+      <NavLink to="/">HOME</NavLink>
       <a>TOURS</a>
       <a>ABOUT</a>
       <a>HELP</a>
-      <Button text={<img src={Heart} alt="Heart" />} />
+      <NavLink to="/favorites">
+        <img src={Heart} alt="Heart" />
+      </NavLink>
       <Button text="SIGN IN" />
     </nav>
   );
