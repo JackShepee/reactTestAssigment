@@ -1,6 +1,5 @@
 import { useQuery, gql } from "@apollo/client";
 import styled from "styled-components";
-import image from "../../assets/backgorundImage_1.png";
 import Button from "./Button";
 import Heart from "../../assets/Heart.svg";
 import { useRecoilState } from "recoil";
@@ -73,11 +72,8 @@ const FlightCard = () => {
         <SlideTitle>{rocket.name}</SlideTitle>
         <SlideDescription>{rocket.description}</SlideDescription>
         <ButtonWrapper>
-          <Button text="BUY"></Button>
-          <Button
-            onClick={() => handleFavoriteClick(rocket)}
-            text={<img src={Heart} alt="Heart" />}
-          ></Button>
+          <button>BUY</button>
+          <Button onClick={() => handleFavoriteClick(rocket)}>L</Button>
         </ButtonWrapper>
       </SlideContentWrapper>
     </SlideWrapper>

@@ -1,4 +1,5 @@
 import "reset-css";
+import "./assets/fonts.css";
 import Home from "./components/pages/Home";
 import Favorites from "./components/pages/Favorites";
 import { BrowserRouter, Routes, Route } from "react-router-dom";

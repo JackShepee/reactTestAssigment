@@ -1,7 +1,12 @@
-import logo from "../../assets/logo.svg";
+import logo from "../../assets/logo.png";
+import { NavLink } from "react-router-dom";
 
 const Logo = () => {
-  return <img src={logo} alt="SpaceX Logo" />;
+  return (
+    <NavLink to="/">
+      <img src={logo} alt="logo" />
+    </NavLink>
+  );
 };
 
 export default Logo;

@@ -1,27 +1,21 @@
-import React, { FC } from "react";
 import styled from "styled-components";
 
-interface Props {
-  text: any;
-  onClick?: React.MouseEventHandler;
-}
-
-const ButtonStyle = styled.button`
-  background-color: #4caf50;
-  border: none;
-  color: white;
-  padding: 10px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  cursor: pointer;
-  border-radius: 5px;
+const Button = styled.button<{
+  variant?: "primary" | "secondary";
+}>`
+  appearance: none;
+  height: 53px;
+  padding: 0px 30px;
+  border: 0;
+  display: flex;
+  align-items: center;
+  font-family: "Syne";
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 29px;
+  text-transform: uppercase;
+  background-color: ${(props) =>
+    props.variant === "primary" ? "#D3EAFF" : "#ECECEC"};
 `;
-
-const Button: FC<Props> = ({ text, onClick }: Props) => {
-  return <ButtonStyle onClick={onClick}>{text}</ButtonStyle>;
-};
 
 export default Button;

@@ -1,4 +1,4 @@
-import image1 from "./backgorundImage_1.png";
+import image1 from "./backgroundImage_1.png";
 import image2 from "./backgorundImage_2.png";
 import image3 from "./backgorundImage_3.png";
 

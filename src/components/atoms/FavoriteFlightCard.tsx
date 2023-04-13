@@ -1,9 +1,7 @@
-import { useRecoilState, useSetRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import { favoritesState, Rocket } from "../../utils/state";
 import styled from "styled-components";
-import image from "../../assets/backgorundImage_1.png";
 import Button from "./Button";
-import Delete from "../../assets/Delete.svg";
 import { images } from "../../assets/images";
 
 const SlideContentWrapper = styled.div`
@@ -58,11 +56,8 @@ const FavoriteFlightCard = () => {
         <SlideTitle>{rocket.name}</SlideTitle>
         <SlideDescription>{rocket.description}</SlideDescription>
         <ButtonWrapper>
-          <Button text="BUY"></Button>
-          <Button
-            onClick={() => handleDeleteClick(rocket, index)}
-            text={<img src={Delete} alt="Heart" />}
-          ></Button>
+          <button>BUY</button>
+          <Button onClick={() => handleDeleteClick(rocket, index)}></Button>
         </ButtonWrapper>
       </SlideContentWrapper>
     </SlideWrapper>
