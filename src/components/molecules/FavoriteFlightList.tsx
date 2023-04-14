@@ -1,81 +1,88 @@
 import React, { useRef } from "react";
 import styled from "styled-components";
-import FavoriteFlightCard from "../atoms/FavoriteFlightCard";
+import FlightCard from "../atoms/FlightCard";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { favoritesState } from "../../utils/state";
+import { Rocket } from "../../utils/state";
+import { Container } from "../atoms/Container";
 
 type SliderProps = {
-  title: string;
+  title?: string;
 };
 
-const SliderWrapper = styled.div`
+const HeaderWrapper = styled.div`
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  flex-direction: row;
+  align-items: center;
   padding: 0px;
-  gap: 40px;
-  position: relative;
+  gap: 712px;
   width: 100%;
-  height: 720px;
+  height: 44px;
+  justify-content: flex-end;
 `;
 
-const SliderTitle = styled.h2`
-  margin-bottom: 20px;
-`;
-
-const CarouselWrapper = styled.div`
+const ButtonWrapper = styled.div`
   display: flex;
-  flex-wrap: nowrap;
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  margin-left: 20px;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+  height: 44px;
 `;
 
-const ArrowButton = styled.button`
-  background: none;
-  border: none;
-  font-size: 24px;
-  color: gray;
-  cursor: pointer;
-  padding: 0 10px;
+const FavoritesGrid = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
 `;
 
 const ClearButton = styled.button`
-  background: none;
-  border: none;
-  font-size: 16px;
-  color: gray;
+  font-family: "Lato";
+  font-weight: 300;
+  font-size: 24px;
+  line-height: 29px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  text-align: center;
+  color: #556b84;
+  background-color: #fff;
   cursor: pointer;
-  margin-left: 20px;
+  border: none;
+`;
+
+const FavCard = styled(FlightCard)`
+  flex-basis: calc(33% - 20px);
+  max-width: unset;
 `;
 
 const FavoriteFlightList: React.FC<SliderProps> = ({ title }) => {
-  const carouselRef = useRef<HTMLDivElement>(null);
   const [_, setFavoritesState] = useRecoilState(favoritesState);
   const favorites = useRecoilValue(favoritesState);
-
-  const handleScroll = (scrollOffset: number) => {
-    if (carouselRef.current) {
-      carouselRef.current.scrollLeft += scrollOffset;
-    }
-  };
 
   const handleClearAll = () => {
     setFavoritesState([]);
   };
 
   return (
-    <SliderWrapper>
-      <SliderTitle>{title}</SliderTitle>
-      <ArrowButton onClick={() => handleScroll(-300)}>{"<"}</ArrowButton>
-      <ArrowButton onClick={() => handleScroll(300)}>{">"}</ArrowButton>
-      {favorites.length > 0 && (
-        <ClearButton onClick={handleClearAll}>Clear All</ClearButton>
-      )}
-      <CarouselWrapper ref={carouselRef}>
-        <FavoriteFlightCard />
-      </CarouselWrapper>
-    </SliderWrapper>
+    <Container>
+      <HeaderWrapper>
+        <ButtonWrapper>
+          {favorites.length > 0 && (
+            <ClearButton onClick={handleClearAll}>Clear All</ClearButton>
+          )}
+        </ButtonWrapper>
+      </HeaderWrapper>
+      <FavoritesGrid>
+        {favorites.map((rocket: Rocket, index: number) => (
+          <FavCard
+            key={rocket.id}
+            index={index}
+            rocket={rocket}
+            variant="wide"
+          />
+        ))}
+      </FavoritesGrid>
+    </Container>
   );
 };
 

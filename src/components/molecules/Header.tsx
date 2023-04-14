@@ -4,7 +4,7 @@ import { Container } from "../atoms/Container";
 import Link from "../atoms/Link";
 import Button from "../atoms/Button";
 import { Heart2 } from "react-iconly";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const HeaderWrapper = styled.header`
   position: fixed;
@@ -37,20 +37,32 @@ const ActionWrapper = styled.div`
 
 const Header = () => {
   const navigate = useNavigate();
-  const handleClick = () => navigate("/favorites");
+  const location = useLocation();
+
+  const handleClick = () => {
+    navigate("/favorites");
+  };
 
   return (
     <HeaderWrapper>
       <HeaderContainer>
         <Logo />
         <Nav>
-          <Link to="/" label="home" />
+          <Link
+            to="/"
+            label="home"
+            isActive={location.pathname === "/" ? true : false}
+          />
           <Link to="" label="tours" />
           <Link to="" label="about" />
           <Link to="" label="help" />
         </Nav>
         <ActionWrapper>
-          <Button variant="secondary" onClick={() => handleClick()}>
+          <Button
+            variant="secondary"
+            isActive={location.pathname === "/favorites" ? true : false}
+            onClick={() => handleClick()}
+          >
             <Heart2 />
           </Button>
           <Button variant="primary">sign in</Button>

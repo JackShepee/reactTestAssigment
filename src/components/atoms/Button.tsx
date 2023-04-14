@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 const Button = styled.button<{
   variant?: "primary" | "secondary";
+  isActive?: boolean;
 }>`
   appearance: none;
   height: 53px;
@@ -16,6 +17,14 @@ const Button = styled.button<{
   text-transform: uppercase;
   background-color: ${(props) =>
     props.variant === "primary" ? "#D3EAFF" : "#ECECEC"};
+  ${(props) =>
+    props.isActive &&
+    `
+    background-color: #dd377d;
+  `};
+  &:active {
+    background-color: #dd377d;
+  }
 `;
 
 export default Button;

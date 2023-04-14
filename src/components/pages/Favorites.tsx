@@ -7,7 +7,7 @@ const Favorites = () => {
     <>
       <Header />
       <Banner />
-      <FavoriteFlightList title="FAVORITE FLIGHTS" />
+      <FavoriteFlightList />
     </>
   );
 };
